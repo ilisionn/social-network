@@ -63,7 +63,7 @@ export const login = async (req, res) => {
     const { email, password } = req.body;
 
     if (!email || !password) {
-      res.status(400).json({ message: 'Введите обязательные поля' });
+      return res.status(400).json({ message: 'Введите обязательные поля' });
     }
 
     const user = await prisma.user.findFirst({
@@ -79,7 +79,7 @@ export const login = async (req, res) => {
     console.log(isPasswordCorrent);
 
     if (user && isPasswordCorrent && secret) {
-      res.status(201).json({
+      return res.status(201).json({
         id: user.id,
         userName: user.userName,
         firstName: user.firstName,
@@ -89,36 +89,24 @@ export const login = async (req, res) => {
         token: jwt.sign({ id: user.id }, secret, { expiresIn: '15d' }),
       });
     } else {
-      res.status(400).json({ message: 'Не удалось войти' });
+      return res.status(400).json({ message: 'Не удалось войти' });
     }
   } catch (error) {
-    res.status(500).json({ message: 'Произошла ошибка' });
-    console.log(error.message);
+    return res.status(500).json({ message: 'Произошла ошибка' });
   }
 };
 
 export const current = async (req, res) => {
-  res.status(201).json(req.user);
+  res.status(200).json(req.user);
 };
 
 export const changeUserData = async (req, res) => {
-  const {
-    email,
-    oldPassword,
-    newPassword,
-    firstName,
-    lastName,
-    age,
-    userName,
-  } = req.body;
   try {
-    if (!email) {
-      return res.status(400).json({ message: 'Введите почту' });
-    }
-
+    const { firstName, lastName, age, userName } = req.body;
+    const { id } = req.params;
     const user = await prisma.user.findFirst({
       where: {
-        email,
+        id,
       },
     });
 
@@ -133,29 +121,12 @@ export const changeUserData = async (req, res) => {
       };
     }
 
-    const salt = await bcrypt.genSalt(10);
-    const hashNewPassword = await bcrypt.hash(newPassword, salt);
-
-    if (oldPassword && newPassword) {
-      const isPasswordCorrent =
-        user && (await bcrypt.compare(oldPassword, user.password));
-      console.log(isPasswordCorrent);
-
-      if (!isPasswordCorrent) {
-        return res.status(400).json({
-          message: 'Введенный вами пароль не совпадает с вашим паролем',
-        });
-      }
-    }
-    console.log(data);
-
     if (user) {
       await prisma.user.update({
         where: {
           email,
         },
         data: {
-          password: hashNewPassword,
           age: data.age,
           firstName: data.firstName,
           lastName: data.lastName,
@@ -166,13 +137,52 @@ export const changeUserData = async (req, res) => {
 
     return res.status(201).json('Данные обновлены');
   } catch (error) {
-    res
-      .status(500)
-      .json({
-        message: 'Произошла ошибка обновления данных, повторите попытку',
-      });
+    res.status(500).json({
+      message: 'Произошла ошибка обновления данных, повторите попытку',
+    });
     console.log(error.message);
   }
 };
 
-//! Идея: При нажатии на 'изменить данные' вылазит модалка с измененными данными и кнопка подтверждения изменения данных.
+export const changePrivateData = async (req, res) => {
+  try {
+    const { oldPassword, newPassword, email } = req.body;
+    const user = await prisma.user.findFirst({
+      where: {
+        email,
+      },
+    });
+
+    if (!oldPassword || !newPassword)
+      return res
+        .status(400)
+        .json({ message: 'Для смены пароля введите поля.' });
+
+    const isPasswordCorrent =
+      user && (await bcrypt.compare(oldPassword, user.password));
+    console.log(isPasswordCorrent);
+
+    if (!isPasswordCorrent) {
+      return res.status(400).json({
+        message: 'Введенный вами пароль не совпадает с вашим паролем',
+      });
+    }
+    const salt = await bcrypt.genSalt(10);
+    const hashNewPassword = await bcrypt.hash(newPassword, salt);
+    console.log(hashNewPassword);
+
+    const updatedUser = await prisma.user.update({
+      where: {
+        email,
+      },
+      data: {
+        password: hashNewPassword,
+      },
+    });
+
+    res.status(200).json({ message: 'Пароль успешно обновлен' });
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).json({ message: error.message });
+  }
+};
