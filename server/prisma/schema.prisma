@@ -11,26 +11,39 @@ datasource db {
 }
 
 model User {
-  id            String   @id @default(uuid())
-  email         String   @unique
-  password      String
-  isAdmin       Boolean?
-  userName      String
-  age           String
-  firstName     String
-  lastName      String
-  friends       Friend[] @relation("friendId")
-  writtenPosts  Post[]   @relation("WrittenPosts")
-  favoritePosts Post[]   @relation("FavoritedBy")
+  id           String   @id @default(uuid())
+  email        String   @unique
+  password     String
+  isAdmin      Boolean?
+  avatar       String?
+  userName     String
+  age          String
+  firstName    String
+  lastName     String
+  friends      Friend[] @relation("friendId")
+  writtenPosts Post[]   @relation("WrittenPosts")
 }
 
 model Post {
-  id            String @id @default(uuid())
-  title         String
-  author        User   @relation("WrittenPosts", fields: [authorId], references: [id])
-  authorId      String
-  favoritedBy   User?  @relation("FavoritedBy", fields: [favoritedById], references: [id])
-  favoritedById String
+  id             String    @id @default(uuid())
+  title          String
+  text           String
+  author         User      @relation("WrittenPosts", fields: [authorId], references: [id])
+  authorId       String
+  likes          Int       @default(0)
+  commentsAmount Int       @default(0)
+  views          Int       @default(0)
+  comments       Comment[] @relation("Comments")
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+}
+
+model Comment {
+  id        String   @id @default(uuid())
+  body      String
+  post      Post     @relation("Comments", fields: [postId], references: [id])
+  postId    String
+  createdAt DateTime @default(now())
 }
 
 model Friend {
