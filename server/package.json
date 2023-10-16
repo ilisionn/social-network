@@ -5,7 +5,9 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "dev": "nodemon server.js"
+    "dev": "concurrently \"yarn server\" \"yarn client\"",
+    "server": "nodemon server.js",
+    "client": "cd ../client && yarn dev"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",
@@ -19,6 +21,7 @@
   "dependencies": {
     "@prisma/client": "^5.4.2",
     "bcrypt": "^5.1.1",
+    "concurrently": "^8.2.1",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
