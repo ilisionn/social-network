@@ -20,13 +20,16 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
 
-    "baseUrl": "src",
+    "baseUrl": ".",
     "paths": {
-      "components/*": ["components/*"],
-      "ui/*": ["ui/*"],
-      "hooks/*": ["hooks/*"],
-      "types/*": ["types/*"],
-      "services/*": ["services/*"],
+      "src/*":["src/*"]
+      // "components/*": ["components/*"],
+      // "ui/*": ["ui/*"],
+      // "hooks/*": ["hooks/*"],
+      // "types/*": ["types/*"],
+      // "services/*": ["services/*"],
+      // "pages/*": ["pages/*"],
+      // "redux/*": ["redux/*"],
     }
   },
   "include": ["src"],
