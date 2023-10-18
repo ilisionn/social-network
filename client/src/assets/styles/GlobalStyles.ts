@@ -1,11 +1,26 @@
-:root {
-  font-family: 'Poppins', sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+import { createGlobalStyle } from 'styled-components';
 
-  color-scheme: light dark;
-  color: #000;
-  background-color: #fff;
+const GlobalStyles = createGlobalStyle`
+:root {
+
+  --background-color: ##EEEEEE;
+	--light-background-color: #2a2d32;
+	--color-pur: #b43aff;
+	--color-text: #f5f5f5;
+  /* Grey */
+  --color-grey-200: #e5e7eb;
+  --color-grey-500: #6b7280;
+
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0px 0.6rem 2.4rem rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 2.4rem 3.2rem rgba(0, 0, 0, 0.12);
+
+  --border-radius-tiny: 3px;
+  --border-radius-sm: 5px;
+  --border-radius-md: 7px;
+  --border-radius-lg: 9px;
+
 }
 
 html,
@@ -96,6 +111,11 @@ video {
   font: inherit;
   vertical-align: baseline;
 }
+
+html {
+  font-family: 'Poppins', sans-serif;
+  background-color: #EEEEEE;
+}
 /* HTML5 display-role reset for older browsers */
 article,
 aside,
@@ -133,3 +153,6 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
+`;
+
+export default GlobalStyles;

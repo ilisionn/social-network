@@ -14,10 +14,16 @@ const buttonVariants = {
     background-color: transparent;
     color: #ff0000;
   `,
+  regular: `
+  font-size: 17px;
+  font-weight: 500;
+  width: 100%;
+  padding: 0;
+  `,
 };
 
 type Props = {
-  variant: 'primary' | 'secondary' | 'danger';
+  variant?: 'primary' | 'secondary' | 'danger' | 'regular' | undefined;
 };
 
 export const Button = styled.button<Props>`
@@ -26,5 +32,5 @@ export const Button = styled.button<Props>`
   border-radius: 8px;
   cursor: pointer;
   border: none;
-  ${({ variant }) => buttonVariants[variant]}
+  ${({ variant }) => buttonVariants[variant]};
 `;
