@@ -26,7 +26,7 @@ const InputStyled = styled.input`
   outline: none;
 
   &:focus {
-    border: 0.1px solid var(--color-pur);
+    border: 0.1px solid var(--color-purple);
 
     width: 200%;
   }

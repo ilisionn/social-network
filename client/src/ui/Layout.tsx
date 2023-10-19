@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import Wrapper from './Wrapper';
-import Header from '../components/Header';
+import Nav from '../components/Nav';
 import { Outlet } from 'react-router-dom';
 import Sidebar from './Sidebar';
 import styled from 'styled-components';
@@ -13,7 +13,7 @@ const Main = styled.div`
 const Layout: FC = () => {
   return (
     <Wrapper>
-      <Header />
+      <Nav />
       <Main>
         <Sidebar />
         <Outlet />

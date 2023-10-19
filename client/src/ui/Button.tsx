@@ -2,13 +2,13 @@ import styled from 'styled-components';
 
 const buttonVariants = {
   primary: `
-    background-color: #b43aff;
+    background-color: var(--color-purple);
     color: #fff;
   `,
   secondary: `
     background-color: transparent;
     color: #000;
-    border: 2px solid #b43aff;
+    border: 2px solid var(--color-purple);
   `,
   danger: `
     background-color: transparent;

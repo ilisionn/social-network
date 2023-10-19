@@ -24,13 +24,13 @@ const Icons = styled.div`
   }
 `;
 
-const Header: FC = () => {
+const Nav: FC = () => {
   const [searchVal, setSearchVal] = useState('');
   return (
     <HeaderStyled>
       <div
         style={{
-          color: 'var(--color-pur)',
+          color: 'var(--color-purple)',
           fontSize: 30,
           fontWeight: 700,
           paddingLeft: 10,
@@ -54,4 +54,4 @@ const Header: FC = () => {
   );
 };
 
-export default Header;
+export default Nav;

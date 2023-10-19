@@ -18,18 +18,28 @@ const NavList = styled.ul`
   flex-direction: column;
   gap: 2rem;
   span {
-    margin-left: 20px;
+    margin-left: 10px;
   }
 `;
 
 const RouterLink = styled(CustomLink)`
   font-size: 17px;
-  font-weight: 500;
+  font-weight: 400;
+  opacity: 0.8;
+  transition: all 0.1s ease;
+
+  &:hover {
+    color: var(--color-purple);
+  }
 `;
 const GroupBtns = styled.li`
   display: flex;
   flex-direction: column;
   gap: 7px;
+
+  span {
+    opacity: 0.8;
+  }
 `;
 
 export default function MainNav() {

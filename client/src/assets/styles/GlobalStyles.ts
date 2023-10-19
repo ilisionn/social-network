@@ -5,7 +5,7 @@ const GlobalStyles = createGlobalStyle`
 
   --background-color: ##EEEEEE;
 	--light-background-color: #2a2d32;
-	--color-pur: #b43aff;
+	--color-purple: #8e54bb;
 	--color-text: #f5f5f5;
   /* Grey */
   --color-grey-200: #e5e7eb;
