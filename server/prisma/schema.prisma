@@ -16,10 +16,12 @@ model User {
   password     String
   isAdmin      Boolean?
   avatar       String?
+  background   String?
   userName     String
   age          String
   firstName    String
   lastName     String
+  bio          String
   friends      Friend[] @relation("friendId")
   writtenPosts Post[]   @relation("WrittenPosts")
 }
