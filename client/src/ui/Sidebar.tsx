@@ -5,7 +5,6 @@ const StyledSidebar = styled.aside`
   max-width: 180px;
   display: flex;
   flex-direction: column;
-
   margin-right: 70px;
 `;
 

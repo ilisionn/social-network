@@ -3,23 +3,12 @@ import { createGlobalStyle } from 'styled-components';
 const GlobalStyles = createGlobalStyle`
 :root {
 
-  --background-color: ##EEEEEE;
-	--light-background-color: #2a2d32;
+  --main-background-color: #EEEEEE;
+	--white-background-color: #ffffff;
+  --secondary-background-color: #F6F6F6;
 	--color-purple: #8e54bb;
-	--color-text: #f5f5f5;
-  /* Grey */
-  --color-grey-200: #e5e7eb;
-  --color-grey-500: #6b7280;
-
-
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
-  --shadow-md: 0px 0.6rem 2.4rem rgba(0, 0, 0, 0.06);
-  --shadow-lg: 0 2.4rem 3.2rem rgba(0, 0, 0, 0.12);
-
-  --border-radius-tiny: 3px;
-  --border-radius-sm: 5px;
-  --border-radius-md: 7px;
-  --border-radius-lg: 9px;
+	--color-text: #000;
+	--white-color-text: #fff;
 
 }
 
@@ -114,7 +103,7 @@ video {
 
 html {
   font-family: 'Poppins', sans-serif;
-  background-color: #EEEEEE;
+  background-color: var(--main-background-color)
 }
 /* HTML5 display-role reset for older browsers */
 article,

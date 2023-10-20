@@ -11,7 +11,7 @@ const HeaderStyled = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #f6f6f6;
+  background-color: var(--secondary-background-color);
   border-radius: 0 0 10px 10px;
 `;
 

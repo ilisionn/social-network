@@ -1,12 +1,13 @@
 import { FC } from 'react';
 import styled from 'styled-components';
-import { Button } from './../ui/Button';
+import { Button } from '../../ui/Button';
 
 const ProfileHeaderWrap = styled.div`
   min-height: 400px;
-  background-color: #f6f6f6;
+  background-color: var(--white-background-color);
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
+  border-bottom: 1px solid var(--color-purple);
 `;
 
 const Image = styled.img`
@@ -22,7 +23,7 @@ const Image = styled.img`
   }
 `;
 
-const Avatar = styled.img`
+const AvatarImg = styled.img`
   border-radius: 50%;
   position: absolute;
   top: 200px;
@@ -35,9 +36,9 @@ const Avatar = styled.img`
 
 const Btn = styled(Button)`
   position: absolute;
-  top: 110px;
-  right: 100px;
-  color: var(--color-text);
+  top: 340px;
+  right: 110px;
+  color: var(--white-color-text);
   font-size: 17px;
 `;
 
@@ -70,8 +71,12 @@ const ProfileHeader: FC = () => {
         src="https://i.pinimg.com/564x/1d/ee/56/1dee56606131432d043afe250bfc8e3d.jpg"
         alt="background"
       />
+
       <Btn variant="primary">Edit profile</Btn>
-      <Avatar src="https://i.pinimg.com/564x/fc/b6/21/fcb62147779ec96f8d9e91aff7955283.jpg" />
+      <AvatarImg
+        src="https://i.pinimg.com/564x/fc/b6/21/fcb62147779ec96f8d9e91aff7955283.jpg"
+        alt="icon"
+      />
       <UserInfo>
         <Name>Firstname Lastname</Name>
         <Id>@nickname</Id>

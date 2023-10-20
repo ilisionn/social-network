@@ -23,14 +23,13 @@ const buttonVariants = {
 };
 
 type Props = {
-  variant?: 'primary' | 'secondary' | 'danger' | 'regular' | undefined;
+  variant?: 'primary' | 'secondary' | 'danger' | 'regular';
 };
-
 export const Button = styled.button<Props>`
   width: 12.5rem;
   padding: 10px 20px;
   border-radius: 8px;
   cursor: pointer;
   border: none;
-  ${({ variant }) => buttonVariants[variant]};
+  ${({ variant }) => variant && buttonVariants[variant]};
 `;
