@@ -9,15 +9,12 @@ const Row = styled.div<Props>`
   ${(props) =>
     props.type === 'horizontal' &&
     css`
-      justify-content: center;
-
       align-items: center;
     `}
   ${(props) =>
     props.type === 'vertical' &&
     css`
       flex-direction: column;
-      gap: 1.6rem;
     `}
 `;
 

@@ -1,5 +1,7 @@
 import { FC } from 'react';
 import NewPostInput from 'src/components/UserProfile/NewPostInput';
+import Post from 'src/components/UserProfile/Post';
+import Posts from 'src/components/UserProfile/Posts';
 import ProfileFriends from 'src/components/UserProfile/ProfileFriends';
 import ProfileHeader from 'src/components/UserProfile/ProfileHeader';
 import styled from 'styled-components';
@@ -15,7 +17,10 @@ const Profile: FC = () => {
     <div>
       <ProfileHeader />
       <ProfileWrapper>
-        <NewPostInput />
+        <div>
+          <NewPostInput />
+          <Posts />
+        </div>
         <ProfileFriends />
       </ProfileWrapper>
     </div>

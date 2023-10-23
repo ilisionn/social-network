@@ -12,8 +12,9 @@ const ProfileFriendsWrapper = styled.div`
     '. . . .';
 
   width: 320px;
-  min-height: 100px;
+  height: 220px;
   padding: 10px;
+  border-radius: 10px;
   background-color: var(--white-background-color);
 `;
 
