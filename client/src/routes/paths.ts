@@ -1,6 +1,6 @@
 export const Paths = {
   home: '/',
-  profile: '/profile',
+  profile: '/profile/:id',
   news: '/news',
   friends: '/friends',
   messanger: '/messanger',

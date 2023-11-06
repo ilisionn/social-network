@@ -2,9 +2,36 @@ import { prisma } from '../prisma/prisma-client.js';
 
 export const getAllPosts = async (req, res) => {
   try {
-    const posts = await prisma.post.findMany();
+    const posts = await prisma.post.findMany({
+      orderBy: {
+        createdAt: 'desc',
+      },
+    });
     res.status(201).json(posts);
-  } catch (error) {}
+  } catch (error) {
+    res.status(500).json({ message: 'Не удалось найти статьи' });
+    console.log(error.message);
+  }
+};
+
+export const getUserPosts = async (req, res) => {
+  try {
+    const { authorId } = req.params;
+
+    const posts = await prisma.post.findMany({
+      where: {
+        authorId,
+      },
+      orderBy: {
+        createdAt: 'desc',
+      },
+    });
+
+    res.status(201).json(posts);
+  } catch (error) {
+    res.status(500).json({ message: 'Не удалось найти статьи' });
+    error.message;
+  }
 };
 
 export const getOnePost = async (req, res) => {
@@ -37,15 +64,14 @@ export const getOnePost = async (req, res) => {
 
 export const createPost = async (req, res) => {
   try {
-    const { title, text } = req.body;
+    const { text } = req.body;
 
-    if (!title || !text) {
+    if (!text) {
       return res.status(400).json({ message: 'Все поля обязательны' });
     }
 
     await prisma.post.create({
       data: {
-        title: title,
         text: text,
         authorId: req.user.id,
       },
@@ -59,9 +85,9 @@ export const createPost = async (req, res) => {
 export const patchPost = async (req, res) => {
   try {
     const { id } = req.params;
-    const { text, title } = req.body;
+    const { text } = req.body;
 
-    if (!text || !title) {
+    if (!text) {
       return res
         .status(400)
         .json({ message: 'Все поля должны быть заполнены' });
@@ -72,7 +98,6 @@ export const patchPost = async (req, res) => {
         id,
       },
       data: {
-        title,
         text,
         views: {
           increment: 1,
@@ -99,5 +124,46 @@ export const deletePost = async (req, res) => {
   } catch (error) {
     console.log(error.message);
     res.status(500).json({ message: 'Не удалось удалить статью' });
+  }
+};
+
+export const likePost = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const likedPost = await prisma.post.update({
+      where: {
+        id,
+      },
+      data: {
+        likes: {
+          increment: 1,
+        },
+      },
+    });
+    res.status(201).json(likedPost);
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).json({ message: 'Не удалось поставить лайк статье' });
+  }
+};
+export const removeLikePost = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const likedPost = await prisma.post.update({
+      where: {
+        id,
+      },
+      data: {
+        likes: {
+          decrement: 1,
+        },
+      },
+    });
+    res.status(201).json(likedPost);
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).json({ message: 'Не удалось поставить лайк статье' });
   }
 };

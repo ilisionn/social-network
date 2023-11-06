@@ -15,7 +15,7 @@ const Row = styled.div<Props>`
     props.type === 'vertical' &&
     css`
       flex-direction: column;
-    `}
+    `};
 `;
 
 export default Row;

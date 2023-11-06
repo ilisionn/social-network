@@ -124,14 +124,9 @@ export const changeUserData = async (req, res) => {
     if (user) {
       await prisma.user.update({
         where: {
-          email,
+          id,
         },
-        data: {
-          age: data.age,
-          firstName: data.firstName,
-          lastName: data.lastName,
-          userName: data.userName,
-        },
+        data: data,
       });
     }
 

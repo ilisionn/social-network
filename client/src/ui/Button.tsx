@@ -31,5 +31,12 @@ export const Button = styled.button<Props>`
   border-radius: 8px;
   cursor: pointer;
   border: none;
+  transition: scale 0.5s ease-in;
   ${({ variant }) => variant && buttonVariants[variant]};
+
+  &:hover {
+    svg {
+      scale: 1.08;
+    }
+  }
 `;

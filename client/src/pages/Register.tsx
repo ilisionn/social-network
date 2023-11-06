@@ -1,91 +1,104 @@
 import { FC, useState } from 'react';
+import { useForm, SubmitHandler } from 'react-hook-form';
+import { registerUser } from 'src/api/auth/register';
+import { useAppDispatch } from 'src/hooks/hooks';
+import { Button } from 'src/ui/Button';
 import Form from 'src/ui/Form';
 import Input from 'src/ui/Input';
-import Wrapper from 'src/ui/Wrapper';
-import styled from 'styled-components';
-import { Button } from './../ui/Button';
-
-const GreatingText = styled.div`
-  color: #b43aff;
-  font-size: 16px;
-  width: 31.25rem;
-  font-weight: 700;
-`;
-
-const LoginWrapper = styled(Wrapper)`
-  display: flex;
-  align-items: center;
-`;
-
+import Row from 'src/ui/Row';
+type Inputs = {
+  email: string;
+  password: string;
+  confirmPassword: string;
+  firstName: string;
+  lastName: string;
+  age: number;
+  userName: string;
+};
 const Register: FC = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const dispatch = useAppDispatch();
+  const [error, setError] = useState('');
+  const { register, handleSubmit } = useForm<Inputs>();
+
+  const onSubmit: SubmitHandler<Inputs> = async (values) => {
+    try {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      const data = await dispatch(registerUser(values));
+      if (data?.payload?.token)
+        localStorage.setItem('token', data.payload.token);
+      if (!data.payload) {
+        setError('Not all required fields are filled in');
+      }
+    } catch (error) {
+      alert('Error');
+      console.error(error);
+    }
+  };
 
   return (
-    <LoginWrapper>
-      <Form choosen="Register">
-        <div style={{ display: 'flex' }}>
-          <Input
-            customWidth="8rem"
-            type="text"
-            placeholder="Firstname"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <Input
-            customWidth="8rem"
-            type="text"
-            placeholder="Lastname"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </div>
-        <div style={{ display: 'flex' }}>
-          <Input
-            customWidth="8rem"
-            type="text"
-            placeholder="Gender"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <Input
-            customWidth="8rem"
-            type="number"
-            placeholder="Age"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </div>
+    <Form submit={handleSubmit(onSubmit)} choosen="Register">
+      <Row type="horizontal" style={{ gap: 15 }}>
         <Input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <Input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <Input
-          type="password"
-          placeholder="Confirm password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          $height="30px"
+          $width="110px"
+          placeholder="First Name"
+          {...register('firstName', { required: true })}
         />
 
-        <Button variant="primary">Register</Button>
-      </Form>
-      <GreatingText>
-        Sovion is your gateway to a world of connection, communication, and
-        community. Join us now and discover a new way to connect with friends,
-        share your life, and explore the stories of others.
-        <br />
-        Start your Sovion journey by creating your free account. It's a few easy
-        steps to a world of social connections.
-      </GreatingText>
-    </LoginWrapper>
+        <Input
+          $height="30px"
+          $width="110px"
+          placeholder="Last Name"
+          {...register('lastName', { required: true })}
+        />
+      </Row>
+      <Row type="horizontal" style={{ gap: 15 }}>
+        <Input
+          $height="30px"
+          $width="110px"
+          placeholder="Username"
+          {...register('userName', { required: true })}
+        />
+
+        <Input
+          $height="30px"
+          $width="110px"
+          placeholder="Age"
+          type="number"
+          {...register('age', { required: true })}
+        />
+      </Row>
+      <Input
+        $height="auth"
+        $width="auth"
+        placeholder="Email"
+        type="email"
+        {...register('email', { required: true })}
+      />
+
+      <Input
+        $height="auth"
+        $width="auth"
+        placeholder="Password"
+        type="password"
+        {...register('password', { required: true })}
+      />
+
+      <Input
+        $height="auth"
+        $width="auth"
+        placeholder="Confirm password"
+        type="password"
+        {...register('confirmPassword', {
+          required: true,
+        })}
+      />
+      {error ? error : ''}
+      <Button variant="primary" type="submit">
+        Register
+      </Button>
+    </Form>
   );
 };
 

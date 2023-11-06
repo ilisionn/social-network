@@ -6,6 +6,9 @@ const StyledSidebar = styled.aside`
   display: flex;
   flex-direction: column;
   margin-right: 70px;
+  @media (max-width: 1024px) {
+    width: 100px;
+  }
 `;
 
 export default function Sidebar() {

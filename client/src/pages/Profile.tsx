@@ -1,6 +1,6 @@
 import { FC } from 'react';
+
 import NewPostInput from 'src/components/UserProfile/NewPostInput';
-import Post from 'src/components/UserProfile/Post';
 import Posts from 'src/components/UserProfile/Posts';
 import ProfileFriends from 'src/components/UserProfile/ProfileFriends';
 import ProfileHeader from 'src/components/UserProfile/ProfileHeader';
@@ -10,6 +10,9 @@ const ProfileWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   margin-top: 30px;
+  @media (max-width: 1024px) {
+    flex-direction: column-reverse;
+  }
 `;
 
 const Profile: FC = () => {

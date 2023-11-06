@@ -13,6 +13,10 @@ const HeaderStyled = styled.div`
   align-items: center;
   background-color: var(--secondary-background-color);
   border-radius: 0 0 10px 10px;
+  @media (max-width: 1200px) {
+    width: 100%;
+    max-width: none;
+  }
 `;
 
 const Icons = styled.div`

@@ -13,6 +13,12 @@ const FormStyled = styled.form`
   justify-content: center;
   align-items: center;
   height: 100vh;
+  input {
+    margin-top: 10px;
+  }
+  button {
+    margin-top: 10px;
+  }
 `;
 
 const Selection = styled.div`
@@ -50,11 +56,12 @@ const Active = styled.div`
 type Props = {
   children: React.ReactNode;
   choosen: string;
+  submit: () => void;
 };
 
-const Form: FC<Props> = ({ children, choosen }) => {
+const Form: FC<Props> = ({ children, choosen, submit }) => {
   return (
-    <FormStyled>
+    <FormStyled onSubmit={submit}>
       <Selection>
         <Active>{choosen}</Active>
         <CustomLink to={choosen === 'Login' ? Paths.register : Paths.login}>
