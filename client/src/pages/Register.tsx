@@ -14,6 +14,7 @@ type Inputs = {
   lastName: string;
   age: number;
   userName: string;
+  avatar: string;
 };
 const Register: FC = () => {
   const dispatch = useAppDispatch();
@@ -91,6 +92,15 @@ const Register: FC = () => {
         placeholder="Confirm password"
         type="password"
         {...register('confirmPassword', {
+          required: true,
+        })}
+      />
+      <Input
+        $height="auth"
+        $width="auth"
+        placeholder="avatar"
+        type="text"
+        {...register('avatar', {
           required: true,
         })}
       />

@@ -3,9 +3,18 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 export const register = async (req, res) => {
   try {
-    const { email, age, password, firstName, lastName, userName } = req.body;
+    const { email, age, password, firstName, lastName, userName, avatar } =
+      req.body;
 
-    if (!lastName || !firstName || !password || !age || !email || !userName) {
+    if (
+      !lastName ||
+      !firstName ||
+      !password ||
+      !age ||
+      !email ||
+      !userName ||
+      !avatar
+    ) {
       return res
         .status(400)
         .json({ message: 'Пожалуйста заполните обязательные поля' });
@@ -33,6 +42,7 @@ export const register = async (req, res) => {
         lastName,
         age,
         email,
+        avatar,
         password: hashPassword,
       },
     });
@@ -47,6 +57,7 @@ export const register = async (req, res) => {
         lastName: user.lastName,
         age: user.age,
         email: user.email,
+        avatar: user.avatar,
         token: jwt.sign({ id: user.id }, secret, { expiresIn: '15d' }),
       });
     } else {

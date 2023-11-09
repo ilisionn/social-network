@@ -17,12 +17,13 @@ model User {
   isAdmin      Boolean?
   avatar       String
   background   String?
-  userName     String
+  userName     String    @unique
   age          String?
   city         String?
   firstName    String
   lastName     String
-  bio          String
+  bio          String?
+  createdAt    DateTime  @default(now())
   friends      Friend[]  @relation("friendId")
   writtenPosts Post[]    @relation("WrittenPosts")
   Comment      Comment[] @relation("CommentAuthor")
